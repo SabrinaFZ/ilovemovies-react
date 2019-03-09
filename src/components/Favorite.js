@@ -1,20 +1,38 @@
-import React from 'react';
+import React from "react";
 
-import './../styles/Favorite.css'
+import ShowCollections from "./ShowCollections";
+
+import "./../styles/Favorite.css";
 
 class Favorite extends React.Component {
+    constructor(props){
+        super(props);
+
+        this.state = {
+            hideCollections: false,
+        }
+
+        this.showCollections = this.showCollections.bind(this);
+    }
+
+    showCollections() {
+        this.setState({
+            hideCollections: !this.state.hideCollections
+        });
+    }
+
     render(){
         return (
             <div className="movie-section_favorite">
-                <p><i className="far fa-star"></i></p>
-                {/* <div>
-                    <p>Collection A</p>
-                    <p>Collection B</p>
-                </div> */}
+                <p onClick={this.showCollections}>
+                    <i className="far fa-star" />
+                </p>
+                {this.state.hideCollections && <ShowCollections {...this.props} />}
             </div>
-
-        )
+        );
     }
-}
 
+}
+    
 export default Favorite;
+    

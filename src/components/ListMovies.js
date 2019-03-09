@@ -3,18 +3,55 @@ import React from 'react';
 import Movie from './Movie';
 
 import './../styles/ListMovies.css';
+class ListMovies extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            collections: [
+                {
+                    id: '1',
+                    name: 'collectionA',
+                    movies: []
+                },
+                {
+                    id: '2',
+                    name: 'collectionB',
+                    movies: []
+                }
+            ]
+        };
 
-const ListMovies =  props => {
-    const { movies } = props;
-    return (
-        <main className="movies">
-            {
-                movies.map(movie => {
-                    return <Movie key={movie.id} movie={movie} />
-                })
+        this.addMovieToFavorite = this.addMovieToFavorite.bind(this);
+    }
+
+    addMovieToFavorite(selectedCollection, movie) {
+        let newCollections = this.state.collections.map(collection => {
+            if (collection.id === selectedCollection.id) {
+                return Object.assign({}, collection, { movies: [...collection.movies, movie] })
             }
-        </main>
-    )
+            return collection;
+        });
+
+        this.setState({
+            collections: newCollections
+        });
+    }
+
+    render(){
+        const { movies } = this.props;
+        return (
+            <main className="movies">
+                {
+                    movies.map(movie => {
+                        return <Movie key={movie.id} movie={movie} 
+                        collections={this.state.collections} 
+                        addFavorite={this.addMovieToFavorite}/>
+                    })
+                }
+            </main>
+        )
+    }
+    
 }
 
 export default ListMovies;
