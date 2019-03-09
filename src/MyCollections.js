@@ -2,15 +2,15 @@ import React from 'react';
 
 import ListMovies from './components/ListMovies';
 
+import CreateCollection from './components/CreateCollection'
+
 import './MyCollections.css';
 
 class MyCollections extends React.Component {
     constructor() {
         super();
         this.state = {
-            openCreateCollection: false,
             selectedCollection: 0,
-            collectionName: '',
             collections: [
                 {
                     id: '1',
@@ -38,9 +38,7 @@ class MyCollections extends React.Component {
             ]
         };
 
-        this.setCollectionName = this.setCollectionName.bind(this);
         this.createCollection = this.createCollection.bind(this);
-        this.openCreateCollectionForm = this.openCreateCollectionForm.bind(this);
     }
 
     selectCollection(collectionPosition){
@@ -49,22 +47,15 @@ class MyCollections extends React.Component {
         })
     }
 
-    setCollectionName(e){
-        this.setState({
-            collectionName: e.target.value
-        });
-    }
-
-    createCollection(e){
+    createCollection(e, collectionName){
         e.preventDefault();
         let newCollection = {
             id: this.state.collections.length+1,
-            name: this.state.collectionName,
+            name: collectionName,
             movies: []
         }
         this.setState(previousState => {
             return {
-                collectionName: '',
                 collections: [
                     ...previousState.collections,
                     newCollection
@@ -73,26 +64,11 @@ class MyCollections extends React.Component {
         });
     }
 
-    openCreateCollectionForm(){
-        this.setState({
-            openCreateCollection: !this.state.openCreateCollection
-        })
-    }
-
     render(){
-        const {collections, collectionName, openCreateCollection}  = this.state;
+        const {collections}  = this.state;
         return(
             <main id="my-collections">
-                <nav className="my-collections_nav">
-                    <button className="my-collections_create" onClick={this.openCreateCollectionForm}>New collection</button>
-                    {
-                        openCreateCollection && 
-                        <form id="my-collections_create-form" onSubmit={this.createCollection}>
-                            <input type="text" placeholder="name of collection" value={collectionName} className="my-collections_input" onChange={this.setCollectionName} />
-                            <button type="submit" disabled={!collectionName}><i className="fas fa-plus"></i></button>
-                        </form>
-                    }
-                </nav>
+                <CreateCollection createCollection={this.createCollection}/>
                 <aside className="my-collections_aside">
                     <ul>
                         {
