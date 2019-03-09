@@ -2,7 +2,8 @@ import React from 'react';
 
 import ListMovies from './components/ListMovies';
 
-import CreateCollection from './components/CreateCollection'
+import CreateCollection from './components/CreateCollection';
+import CollectionNavigation from './components/CollectionsNavigation';
 
 import './MyCollections.css';
 
@@ -38,13 +39,14 @@ class MyCollections extends React.Component {
             ]
         };
 
+        this.selectCollection = this.selectCollection.bind(this);
         this.createCollection = this.createCollection.bind(this);
     }
 
     selectCollection(collectionPosition){
         this.setState({
             selectedCollection: collectionPosition
-        })
+        });
     }
 
     createCollection(e, collectionName){
@@ -69,18 +71,10 @@ class MyCollections extends React.Component {
         return(
             <main id="my-collections">
                 <CreateCollection createCollection={this.createCollection}/>
-                <aside className="my-collections_aside">
-                    <ul>
-                        {
-                            collections.length > 0 && collections.map((collection, index) =>{
-                                return <li key={collection.id} onClick={this.selectCollection.bind(this, index)}>{collection.name}</li>
-                            })
-                        }
-                    </ul>
-                </aside>
+                <CollectionNavigation collections={collections} selectCollection={this.selectCollection}/>
                 <section className="my-collections_movies">
-                    {this.state.collections[this.state.selectedCollection].movies.length > 0 
-                        &&  <ListMovies movies={this.state.collections[this.state.selectedCollection].movies} />}
+                    {collections[this.state.selectedCollection].movies.length > 0 
+                        &&  <ListMovies movies={collections[this.state.selectedCollection].movies} />}
                 </section>
             </main>
         )
