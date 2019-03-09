@@ -7,7 +7,7 @@ const CollectionNavigation = props => {
             <ul>
                 {
                     collections.length > 0 && collections.map((collection, index) => {
-                        return <li key={collection.id} onClick={() => props.selectCollection(index)}>{collection.name}</li>
+                        return <li key={collection.id} onClick={() => props.selectCollection(index)}> <span className="my-collections_delete" onClick={(e) => props.deleteCollection(e, index)}><i className="fas fa-trash-alt"></i></span>{collection.name}</li>                       
                     })
                 }
             </ul>

@@ -41,6 +41,7 @@ class MyCollections extends React.Component {
 
         this.selectCollection = this.selectCollection.bind(this);
         this.createCollection = this.createCollection.bind(this);
+        this.deleteCollection = this.deleteCollection.bind(this);
     }
 
     selectCollection(collectionPosition){
@@ -66,14 +67,25 @@ class MyCollections extends React.Component {
         });
     }
 
+    deleteCollection(e, collectionPosition){
+        e.stopPropagation();
+        let collectionsCopy = [...this.state.collections];
+        collectionsCopy.splice(collectionPosition, 1);
+        this.setState({
+            collections: [
+                ...collectionsCopy,
+            ]
+        });
+    }
+
     render(){
         const {collections}  = this.state;
         return(
             <main id="my-collections">
                 <CreateCollection createCollection={this.createCollection}/>
-                <CollectionNavigation collections={collections} selectCollection={this.selectCollection}/>
+                <CollectionNavigation collections={collections} selectCollection={this.selectCollection} deleteCollection={this.deleteCollection}/>
                 <section className="my-collections_movies">
-                    {collections[this.state.selectedCollection].movies.length > 0 
+                    {collections[this.state.selectedCollection] && collections[this.state.selectedCollection].movies.length > 0 
                         &&  <ListMovies movies={collections[this.state.selectedCollection].movies} />}
                 </section>
             </main>
