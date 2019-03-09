@@ -1,0 +1,40 @@
+#my-collections{
+    display: grid;
+    grid-template-columns: 30% 1fr;
+    grid-template-rows: 1fr auto;
+}
+
+.my-collections_create {
+    display: block;
+    margin: 0.5rem auto;
+    outline: none;
+}
+
+.my-collections_nav{
+    grid-column: 1 / span 2;
+}
+
+.my-collections_aside{
+    padding: 1rem 0.5rem;
+}
+
+.my-collections_aside li {
+    cursor: pointer;
+    padding: 0.5rem 0rem;
+    word-break: break-all;
+}
+
+.my-collections_aside li:not(:last-child){
+    border-bottom: 0.05rem dashed black;
+}
+
+#my-collections_create-form {
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    background: #DE1100;
+}
+
+.my-collections_input {
+    width: 80%;
+}
