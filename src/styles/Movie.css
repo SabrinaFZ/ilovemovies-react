@@ -1,0 +1,27 @@
+.movie-section {
+    -webkit-box-shadow: 1px 2px 35px -13px rgba(0,0,0,0.75);
+    -moz-box-shadow: 1px 2px 35px -13px rgba(0,0,0,0.75);
+    box-shadow: 1px 2px 35px -13px rgba(0,0,0,0.75);
+    padding: 0.2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.movie-section_info{
+    padding: 0 .5rem;
+}
+
+.movie-section_poster {
+    width: 80%;
+    display: block;
+    margin: 0 auto;
+    padding: 0.2rem;
+    border-radius: 0.5rem;
+}
+
+.movie-section_title{
+    text-align:center;
+    font-weight: 600;
+    color: #DE1100;
+}

@@ -1,0 +1,10 @@
+#search-form {
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  background: #DE1100;
+}
+
+.search-form_input {
+    width: 80%;
+}
