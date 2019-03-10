@@ -43,6 +43,7 @@ class ListMovies extends React.Component {
                         return <Movie key={movie.id} 
                         movie={movie} 
                         addFavorite={this.addMovieToFavorite}
+                        path={path}
                         deleteFavorite={() => this.deleteMovieFromFavorite(index)}/>
                     })
                 }
