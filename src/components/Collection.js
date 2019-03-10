@@ -3,7 +3,6 @@ import React from 'react';
 class Collection extends React.Component {
     constructor(props){
         super(props);
-
         this.selectCollection = this.selectCollection.bind(this);
     }
 

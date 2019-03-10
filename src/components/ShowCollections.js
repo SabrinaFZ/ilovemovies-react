@@ -5,7 +5,7 @@ import Collection from './Collection';
 
 class ShowCollections extends React.Component {
     render(){
-        const {collections} = this.props;
+        const collections = JSON.parse(localStorage.getItem('collections'));
         return(
             <div>
                 {

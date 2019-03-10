@@ -7,21 +7,14 @@ class ListMovies extends React.Component {
     constructor() {
         super();
         this.state = {
-            collections: [
-                {
-                    id: '1',
-                    name: 'collectionA',
-                    movies: []
-                },
-                {
-                    id: '2',
-                    name: 'collectionB',
-                    movies: []
-                }
-            ]
+            collections: JSON.parse(localStorage.getItem('collections')) || [] 
         };
 
         this.addMovieToFavorite = this.addMovieToFavorite.bind(this);
+    }
+
+    componentDidUpdate() {
+        localStorage.setItem('collections', JSON.stringify(this.state.collections));
     }
 
     addMovieToFavorite(selectedCollection, movie) {
@@ -47,10 +40,10 @@ class ListMovies extends React.Component {
             <div className="movies">
                 {
                     movies.map((movie, index) => {
-                        return <Movie key={movie.id} movie={movie} 
-                        collections={this.state.collections} 
-                            addFavorite={this.addMovieToFavorite} path={path} 
-                            deleteFavorite={() => this.deleteMovieFromFavorite(index)}/>
+                        return <Movie key={movie.id} 
+                        movie={movie} 
+                        addFavorite={this.addMovieToFavorite}
+                        deleteFavorite={() => this.deleteMovieFromFavorite(index)}/>
                     })
                 }
             </div>
