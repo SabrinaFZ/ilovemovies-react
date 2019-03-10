@@ -6,7 +6,10 @@ class Collection extends React.Component {
         this.selectCollection = this.selectCollection.bind(this);
     }
 
-    selectCollection(){
+    selectCollection(e){
+        e.stopPropagation();
+        e.preventDefault();
+        
         this.props.selectCollection(this.props.collection);
         this.props.showCollections();
     }

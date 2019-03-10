@@ -15,7 +15,11 @@ class Favorite extends React.Component {
         this.showCollections = this.showCollections.bind(this);
     }
 
-    showCollections() {
+    showCollections(e) {
+        if(e){
+            e.preventDefault();
+        }
+    
         this.setState({
             hideCollections: !this.state.hideCollections
         });
