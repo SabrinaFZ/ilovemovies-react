@@ -9,7 +9,7 @@ class ShowCollections extends React.Component {
         return(
             <div>
                 {
-                    collections.map( (collection, index) => {
+                    collections.map( (collection) => {
                         return <Collection key={collection.id} collection={collection} {...this.props}/>
                     })
                 }

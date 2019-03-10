@@ -42,6 +42,7 @@ class MyCollections extends React.Component {
         this.selectCollection = this.selectCollection.bind(this);
         this.createCollection = this.createCollection.bind(this);
         this.deleteCollection = this.deleteCollection.bind(this);
+        this.deleteMovieFromFavorite = this.deleteMovieFromFavorite.bind(this);
     }
 
     selectCollection(collectionPosition){
@@ -78,15 +79,29 @@ class MyCollections extends React.Component {
         });
     }
 
+    deleteMovieFromFavorite(moviePosition) {
+        let newCollection = [...this.state.collections];
+        newCollection[this.state.selectedCollection].movies.splice(moviePosition, 1);
+
+        let newCollections = this.state.collections.map(collection  => {       
+            return collection;
+        });
+
+        this.setState({
+            collections: newCollections
+        });
+    }
+
     render(){
         const {collections}  = this.state;
+        const {match} = this.props;
         return(
             <main id="my-collections">
                 <CreateCollection createCollection={this.createCollection}/>
                 <CollectionNavigation collections={collections} selectCollection={this.selectCollection} deleteCollection={this.deleteCollection}/>
                 <section className="my-collections_movies">
                     {collections[this.state.selectedCollection] && collections[this.state.selectedCollection].movies.length > 0 
-                        &&  <ListMovies movies={collections[this.state.selectedCollection].movies} />}
+                        && <ListMovies movies={collections[this.state.selectedCollection].movies} {...match} deleteFavorite={this.deleteMovieFromFavorite}/>}
                 </section>
             </main>
         )

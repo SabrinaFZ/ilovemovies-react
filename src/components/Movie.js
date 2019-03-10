@@ -18,12 +18,18 @@ class Movie extends React.Component {
     render(){
         return (
             <section className="movie-section">
-                {/* <Ratings /> */}
+                { this.props.path === '/my-collections' && <Ratings />}
                 <div className="movie-section_info">
                     <img className="movie-section_poster" src={this.props.movie.poster_path ? `https://image.tmdb.org/t/p/w500/${this.props.movie.poster_path}` : default_poster} alt={`${this.props.movie.title} Poster`} />
                     <p className="movie-section_title">{this.props.movie.title}</p>
                 </div>
-                <Favorite {...this.props} selectCollection={this.selectCollection}/>
+                {
+                    this.props.path !== '/my-collections' ? (
+                    <Favorite {...this.props} selectCollection={this.selectCollection}/>
+                    ) : (
+                            <span className="movie-section_delete"><i className="fas fa-trash-alt" onClick={this.props.deleteFavorite}></i></span>
+                    )
+                }
             </section>
         )
     }

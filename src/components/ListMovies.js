@@ -37,15 +37,20 @@ class ListMovies extends React.Component {
         });
     }
 
+    deleteMovieFromFavorite(moviePosition){
+        this.props.deleteFavorite(moviePosition);
+    }
+
     render(){
-        const { movies } = this.props;
+        const { movies, path } = this.props;
         return (
             <div className="movies">
                 {
-                    movies.map(movie => {
+                    movies.map((movie, index) => {
                         return <Movie key={movie.id} movie={movie} 
                         collections={this.state.collections} 
-                        addFavorite={this.addMovieToFavorite}/>
+                            addFavorite={this.addMovieToFavorite} path={path} 
+                            deleteFavorite={() => this.deleteMovieFromFavorite(index)}/>
                     })
                 }
             </div>
