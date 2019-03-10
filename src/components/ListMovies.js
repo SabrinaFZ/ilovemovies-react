@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 import Movie from './Movie';
 
@@ -41,12 +42,16 @@ class ListMovies extends React.Component {
             <div className="movies">
                 {
                     movies.map((movie, index) => {
-                        return <Movie key={movie.id} 
-                        movie={movie} 
-                        addFavorite={this.addMovieToFavorite}
-                        path={path}
-                        collections={this.state.collections}
-                        deleteFavorite={() => this.deleteMovieFromFavorite(index)}/>
+                        return (
+                            <Link style={{ textDecoration: 'none' }} key={movie.id} to={`/movie/${movie.id}`}>
+                                <Movie 
+                                    movie={movie}
+                                    addFavorite={this.addMovieToFavorite}
+                                    path={path}
+                                    collections={this.state.collections}
+                                    deleteFavorite={() => this.deleteMovieFromFavorite(index)} />
+                            </Link>
+                        )
                     })
                 }
             </div>
