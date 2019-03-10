@@ -12,10 +12,23 @@ class Movie extends React.Component {
 
         this.selectCollection = this.selectCollection.bind(this);
     }
+
     selectCollection(selectedCollection){
         this.props.addFavorite(selectedCollection, this.props.movie);
     }
+
+    checkIsFavorite() {
+        let found;
+        this.props.collections.forEach((collection) => {
+            found = collection.movies.find(movie => {
+                return movie.id === this.props.movie.id;
+            })
+        })
+        return found;
+    }
+
     render(){
+        let favorite = this.checkIsFavorite() ? true : false;
         return (
             <section className="movie-section">
                 { this.props.path === '/my-collections' && <Ratings />}
@@ -25,7 +38,7 @@ class Movie extends React.Component {
                 </div>
                 {
                     this.props.path !== '/my-collections' ? (
-                    <Favorite {...this.props} selectCollection={this.selectCollection}/>
+                        <Favorite {...this.props} selectCollection={this.selectCollection} favorite={favorite}/>
                     ) : (
                             <span className="movie-section_delete"><i className="fas fa-trash-alt" onClick={this.props.deleteFavorite}></i></span>
                     )

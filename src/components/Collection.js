@@ -8,6 +8,7 @@ class Collection extends React.Component {
 
     selectCollection(){
         this.props.selectCollection(this.props.collection);
+        this.props.showCollections();
     }
     render(){
         return (

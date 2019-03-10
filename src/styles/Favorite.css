@@ -3,3 +3,8 @@
     text-align: right;
     cursor: pointer;
 }
+
+.movie-section_button {
+    border: 0;
+    padding: 0;
+}

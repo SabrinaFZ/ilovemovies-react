@@ -61,15 +61,12 @@ class MyCollections extends React.Component {
     }
 
     deleteMovieFromFavorite(moviePosition) {
-        let newCollection = [...this.state.collections];
-        newCollection[this.state.selectedCollection].movies.splice(moviePosition, 1);
-
-        let newCollections = this.state.collections.map(collection  => {       
-            return collection;
-        });
-
-        this.setState({
-            collections: newCollections
+        this.setState(previousState => {
+            let newCollection = [...previousState.collections];
+            newCollection[this.state.selectedCollection].movies.splice(moviePosition, 1);
+            return {
+                collections: [...previousState.collections]
+            }
         });
     }
 

@@ -18,15 +18,16 @@ class ListMovies extends React.Component {
     }
 
     addMovieToFavorite(selectedCollection, movie) {
-        let newCollections = this.state.collections.map(collection => {
-            if (collection.id === selectedCollection.id) {
-                return Object.assign({}, collection, { movies: [...collection.movies, movie] })
+        this.setState(previousState => {
+            let newCollections = previousState.collections.map(collection => {
+                if (collection.id === selectedCollection.id) {
+                    return Object.assign({}, collection, { movies: [...collection.movies, movie] })
+                }
+                return collection;
+            });
+            return {
+                collections: [...newCollections]
             }
-            return collection;
-        });
-
-        this.setState({
-            collections: newCollections
         });
     }
 
@@ -44,6 +45,7 @@ class ListMovies extends React.Component {
                         movie={movie} 
                         addFavorite={this.addMovieToFavorite}
                         path={path}
+                        collections={this.state.collections}
                         deleteFavorite={() => this.deleteMovieFromFavorite(index)}/>
                     })
                 }

@@ -9,7 +9,7 @@ class Favorite extends React.Component {
         super(props);
 
         this.state = {
-            hideCollections: false,
+            hideCollections: false
         }
 
         this.showCollections = this.showCollections.bind(this);
@@ -24,10 +24,14 @@ class Favorite extends React.Component {
     render(){
         return (
             <div className="movie-section_favorite">
-                <p onClick={this.showCollections}>
-                    <i className="far fa-star" />
-                </p>
-                {this.state.hideCollections && <ShowCollections {...this.props} />}
+                <button className="movie-section_button" onClick={this.showCollections} disabled={this.props.favorite}>
+                    {this.props.favorite ? (
+                        <i className="fas fa-star" />
+                    ) : (
+                            <i className="far fa-star"></i>
+                        )}    
+                </button>
+                {this.state.hideCollections && <ShowCollections showCollections={this.showCollections} {...this.props}/>}
             </div>
         );
     }
