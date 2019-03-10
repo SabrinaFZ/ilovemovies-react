@@ -19,8 +19,12 @@
     text-decoration: none;
 }
 
+.navigator_a--selected {
+    text-decoration: none;
+    font-weight: 600;
+}
+
 .navigator_li:hover{
     transform: scale(1.1);
-    font-weight: 600;
     -webkit-transform: scale(1.1);
 }

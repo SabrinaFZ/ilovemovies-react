@@ -40,7 +40,7 @@ class ListMovies extends React.Component {
     render(){
         const { movies } = this.props;
         return (
-            <main className="movies">
+            <div className="movies">
                 {
                     movies.map(movie => {
                         return <Movie key={movie.id} movie={movie} 
@@ -48,7 +48,7 @@ class ListMovies extends React.Component {
                         addFavorite={this.addMovieToFavorite}/>
                     })
                 }
-            </main>
+            </div>
         )
     }
     
