@@ -12,37 +12,17 @@ class MyCollections extends React.Component {
         super();
         this.state = {
             selectedCollection: 0,
-            collections: [
-                {
-                    id: '1',
-                    name: 'collectioerwerwerwenA',
-                    movies: [
-                        {
-                            id: '1',
-                            title: 'Capitan America'
-                        },
-                        {
-                            id: '2',
-                            title: 'Capitan America 2'
-                        },
-                        {
-                            id: '3',
-                            title: 'Capitan America 3'
-                        }
-                    ]
-                },
-                {
-                    id: '2',
-                    name: 'collectionB',
-                    movies: []
-                }
-            ]
+            collections: JSON.parse(localStorage.getItem('collections')) || []
         };
 
         this.selectCollection = this.selectCollection.bind(this);
         this.createCollection = this.createCollection.bind(this);
         this.deleteCollection = this.deleteCollection.bind(this);
         this.deleteMovieFromFavorite = this.deleteMovieFromFavorite.bind(this);
+    }
+
+    componentDidUpdate() {
+        localStorage.setItem('collections', JSON.stringify(this.state.collections));
     }
 
     selectCollection(collectionPosition){
@@ -58,6 +38,7 @@ class MyCollections extends React.Component {
             name: collectionName,
             movies: []
         }
+
         this.setState(previousState => {
             return {
                 collections: [
@@ -65,7 +46,7 @@ class MyCollections extends React.Component {
                     newCollection
                 ]
             }
-        });
+        });    
     }
 
     deleteCollection(e, collectionPosition){
@@ -93,14 +74,14 @@ class MyCollections extends React.Component {
     }
 
     render(){
-        const {collections}  = this.state;
+        const { collections } = this.state;
         const {match} = this.props;
         return(
             <main id="my-collections">
                 <CreateCollection createCollection={this.createCollection}/>
                 <CollectionNavigation collections={collections} selectCollection={this.selectCollection} deleteCollection={this.deleteCollection}/>
                 <section className="my-collections_movies">
-                    {collections[this.state.selectedCollection] && collections[this.state.selectedCollection].movies.length > 0 
+                    {collections && collections[this.state.selectedCollection] && collections[this.state.selectedCollection].movies.length > 0 
                         && <ListMovies movies={collections[this.state.selectedCollection].movies} {...match} deleteFavorite={this.deleteMovieFromFavorite}/>}
                 </section>
             </main>

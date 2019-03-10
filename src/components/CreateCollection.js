@@ -9,6 +9,15 @@ class CreateCollection extends React.Component{
         }
         this.setCollectionName = this.setCollectionName.bind(this);
         this.openCreateCollectionForm = this.openCreateCollectionForm.bind(this);
+        this.createCollection = this.createCollection.bind(this);
+    }
+
+    createCollection(e){
+        this.props.createCollection(e, this.state.collectionName);
+        this.setState({
+            collectionName: '',
+            openCreateCollection: false
+        });
     }
 
     setCollectionName(e) {
@@ -30,7 +39,7 @@ class CreateCollection extends React.Component{
                 <button className="my-collections_create" onClick={this.openCreateCollectionForm}>New collection</button>
                 {
                     openCreateCollection &&
-                    <form id="my-collections_create-form" onSubmit={(e) => this.props.createCollection(e, this.state.collectionName)}>
+                    <form id="my-collections_create-form" onSubmit={this.createCollection}>
                         <input type="text" placeholder="name of collection" value={collectionName} className="my-collections_input" onChange={this.setCollectionName} />
                         <button type="submit" disabled={!collectionName}><i className="fas fa-plus"></i></button>
                     </form>
