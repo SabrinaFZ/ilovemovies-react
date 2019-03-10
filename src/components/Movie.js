@@ -12,6 +12,7 @@ class Movie extends React.Component {
 
         this.selectCollection = this.selectCollection.bind(this);
         this.deleteFavorite = this.deleteFavorite.bind(this);
+        this.addRating = this.addRating.bind(this);
     }
 
     selectCollection(selectedCollection){
@@ -34,11 +35,15 @@ class Movie extends React.Component {
         this.props.deleteFavorite();
     }
 
+    addRating(rating){
+        this.props.addRating(rating, this.props.movie);
+    }
+
     render(){
         let favorite = this.checkIsFavorite() ? true : false;
         return (
             <section className="movie-section">
-                { this.props.path === '/my-collections' && <Ratings />}
+                {this.props.path === '/my-collections' && <Ratings rating={this.props.movie.rating} addRating={this.addRating}/> }
                 <div className="movie-section_info">
                     <img className="movie-section_poster" src={this.props.movie.poster_path ? `https://image.tmdb.org/t/p/w500/${this.props.movie.poster_path}` : default_poster} alt={`${this.props.movie.title} Poster`} />
                     <p className="movie-section_title">{this.props.movie.title}</p>

@@ -19,6 +19,7 @@ class MyCollections extends React.Component {
         this.createCollection = this.createCollection.bind(this);
         this.deleteCollection = this.deleteCollection.bind(this);
         this.deleteMovieFromFavorite = this.deleteMovieFromFavorite.bind(this);
+        this.addRating = this.addRating.bind(this);
     }
 
     componentDidUpdate() {
@@ -70,6 +71,29 @@ class MyCollections extends React.Component {
         });
     }
 
+    addRating(ratingSelected, movieSelected){
+        this.setState( previousState => {
+            
+            let newMovies = previousState.collections[this.state.selectedCollection].movies.map(movie => {
+                if (movie.id === movieSelected.id) {
+                    return Object.assign({}, movie, { rating: ratingSelected })
+                }
+                return movie;
+            });
+
+            let newCollections = previousState.collections.map((collection, index) => {
+                if(index === this.state.selectedCollection){
+                    return Object.assign({}, collection, { movies: [...newMovies] })
+                }
+                return collection;
+            });
+            
+            return {
+                collections: [...newCollections]
+            }
+        })
+    }
+
     render(){
         const { collections } = this.state;
         const {match} = this.props;
@@ -79,7 +103,7 @@ class MyCollections extends React.Component {
                 <CollectionNavigation collections={collections} selectCollection={this.selectCollection} deleteCollection={this.deleteCollection}/>
                 <section className="my-collections_movies">
                     {collections && collections[this.state.selectedCollection] && collections[this.state.selectedCollection].movies.length > 0 
-                        && <ListMovies movies={collections[this.state.selectedCollection].movies} {...match} deleteFavorite={this.deleteMovieFromFavorite}/>}
+                        && <ListMovies movies={collections[this.state.selectedCollection].movies} {...match} deleteFavorite={this.deleteMovieFromFavorite} addRating={this.addRating}/>}
                 </section>
             </main>
         )

@@ -12,6 +12,7 @@ class ListMovies extends React.Component {
         };
 
         this.addMovieToFavorite = this.addMovieToFavorite.bind(this);
+        this.addRating = this.addRating.bind(this);
     }
 
     componentDidUpdate() {
@@ -19,10 +20,11 @@ class ListMovies extends React.Component {
     }
 
     addMovieToFavorite(selectedCollection, movie) {
+        let newMovie = Object.assign({}, movie, {rating: 'none'})
         this.setState(previousState => {
             let newCollections = previousState.collections.map(collection => {
                 if (collection.id === selectedCollection.id) {
-                    return Object.assign({}, collection, { movies: [...collection.movies, movie] })
+                    return Object.assign({}, collection, { movies: [...collection.movies, newMovie] })
                 }
                 return collection;
             });
@@ -30,6 +32,10 @@ class ListMovies extends React.Component {
                 collections: [...newCollections]
             }
         });
+    }
+
+    addRating(rating, movie){
+        this.props.addRating(rating, movie);
     }
 
     deleteMovieFromFavorite(moviePosition){
@@ -47,6 +53,7 @@ class ListMovies extends React.Component {
                                 <Movie 
                                     movie={movie}
                                     addFavorite={this.addMovieToFavorite}
+                                    addRating={this.addRating}
                                     path={path}
                                     collections={this.state.collections}
                                     deleteFavorite={() => this.deleteMovieFromFavorite(index)} />
