@@ -6,24 +6,17 @@ import CreateCollection from './components/CreateCollection';
 import CollectionNavigation from './components/CollectionsNavigation';
 
 import './MyCollections.css';
+import AppContext from './context/AppContext';
 
 class MyCollections extends React.Component {
     constructor() {
         super();
         this.state = {
-            selectedCollection: 0,
-            collections: JSON.parse(localStorage.getItem('collections')) || []
+            selectedCollection: 0
         };
 
         this.selectCollection = this.selectCollection.bind(this);
-        this.createCollection = this.createCollection.bind(this);
-        this.deleteCollection = this.deleteCollection.bind(this);
-        this.deleteMovieFromFavorite = this.deleteMovieFromFavorite.bind(this);
-        this.addRating = this.addRating.bind(this);
-    }
 
-    componentDidUpdate() {
-        localStorage.setItem('collections', JSON.stringify(this.state.collections));
     }
 
     selectCollection(collectionPosition){
@@ -32,80 +25,22 @@ class MyCollections extends React.Component {
         });
     }
 
-    createCollection(e, collectionName){
-        e.preventDefault();
-        let newCollection = {
-            id: this.state.collections.length+1,
-            name: collectionName,
-            movies: []
-        }
-
-        this.setState(previousState => {
-            return {
-                collections: [
-                    ...previousState.collections,
-                    newCollection
-                ]
-            }
-        });    
-    }
-
-    deleteCollection(e, collectionPosition){
-        e.stopPropagation();
-        let collectionsCopy = [...this.state.collections];
-        collectionsCopy.splice(collectionPosition, 1);
-        this.setState({
-            collections: [
-                ...collectionsCopy,
-            ]
-        });
-    }
-
-    deleteMovieFromFavorite(moviePosition) {
-        this.setState(previousState => {
-            let newCollection = [...previousState.collections];
-            newCollection[this.state.selectedCollection].movies.splice(moviePosition, 1);
-            return {
-                collections: [...previousState.collections]
-            }
-        });
-    }
-
-    addRating(ratingSelected, movieSelected){
-        this.setState( previousState => {
-            
-            let newMovies = previousState.collections[this.state.selectedCollection].movies.map(movie => {
-                if (movie.id === movieSelected.id) {
-                    return Object.assign({}, movie, { rating: ratingSelected })
-                }
-                return movie;
-            });
-
-            let newCollections = previousState.collections.map((collection, index) => {
-                if(index === this.state.selectedCollection){
-                    return Object.assign({}, collection, { movies: [...newMovies] })
-                }
-                return collection;
-            });
-            
-            return {
-                collections: [...newCollections]
-            }
-        })
-    }
-
     render(){
-        const { collections } = this.state;
         const {match} = this.props;
         return(
-            <main id="my-collections">
-                <CreateCollection createCollection={this.createCollection}/>
-                <CollectionNavigation collections={collections} selectCollection={this.selectCollection} deleteCollection={this.deleteCollection}/>
-                <section className="my-collections_movies">
-                    {collections && collections[this.state.selectedCollection] && collections[this.state.selectedCollection].movies.length > 0 
-                        && <ListMovies movies={collections[this.state.selectedCollection].movies} {...match} deleteFavorite={this.deleteMovieFromFavorite} addRating={this.addRating}/>}
-                </section>
-            </main>
+            <AppContext.Consumer >
+                {
+                    ({ collections }) =>
+                        <main id="my-collections">
+                            <CreateCollection />
+                            <CollectionNavigation selectCollection={this.selectCollection} />
+                            <section className="my-collections_movies">
+                                {collections && collections[this.state.selectedCollection] && collections[this.state.selectedCollection].movies.length > 0
+                                    && <ListMovies movies={collections[this.state.selectedCollection].movies} {...match} selectedCollection={this.state.selectedCollection} />}
+                            </section>
+                        </main>
+                }
+            </AppContext.Consumer>
         )
     }
 }

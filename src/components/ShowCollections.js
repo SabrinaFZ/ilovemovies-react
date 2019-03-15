@@ -1,20 +1,29 @@
 import React from 'react';
 
 import Collection from './Collection';
+import AppContext from '../context/AppContext';
 
-class ShowCollections extends React.Component {
-    render(){
-        const collections = JSON.parse(localStorage.getItem('collections'));
-        return(
-            <div>
-                {
-                    collections.map( (collection) => {
-                        return <Collection key={collection.id} collection={collection} {...this.props}/>
-                    })
-                }
-            </div>
-        )
-    }
+const ShowCollections = (props) => {
+
+    return (
+        <AppContext.Consumer>
+            {({ collections }) => (
+                <div>
+                    {collections.map(collection => {
+                        return (
+                            <Collection
+                                key={collection.id}
+                                collection={collection}
+                                {...props}
+                            />
+
+                        );
+                    })}
+                </div>
+            )}
+        </AppContext.Consumer>
+    );
 }
-
+    
+            
 export default ShowCollections;

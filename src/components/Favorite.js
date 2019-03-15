@@ -35,7 +35,7 @@ class Favorite extends React.Component {
                             <i className="far fa-star"></i>
                         )}    
                 </button>
-                {this.state.hideCollections && <ShowCollections showCollections={this.showCollections} {...this.props}/>}
+                {this.state.hideCollections && <ShowCollections showCollections={this.showCollections} movie={this.props.movie}/>}
             </div>
         );
     }

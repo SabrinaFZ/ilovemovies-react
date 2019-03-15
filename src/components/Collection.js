@@ -1,25 +1,29 @@
 import React from 'react';
+import AppContext from '../context/AppContext';
 
-class Collection extends React.Component {
-    constructor(props){
-        super(props);
-        this.selectCollection = this.selectCollection.bind(this);
-    }
+const Collection = (props) => {    
+    
+    return (
+        <AppContext.Consumer>
+            {
+                ({ addFavorite }) =>
+                    <div>
+                        <p onClick={(e) => {
+                            selectCollection(e, props);
+                            addFavorite(props.collection, props.movie)
+                        }}>{props.collection.name}</p>
+                    </div>
+            }
+        </AppContext.Consumer>
 
-    selectCollection(e){
-        e.stopPropagation();
-        e.preventDefault();
-        
-        this.props.selectCollection(this.props.collection);
-        this.props.showCollections();
-    }
-    render(){
-        return (
-            <div>
-                <p onClick={this.selectCollection}>{this.props.collection.name}</p>
-            </div>   
-        )
-    }
+    )
 }
 
-export default Collection;
+const selectCollection = (e, props) =>{
+    e.stopPropagation();
+    e.preventDefault();
+
+    props.showCollections();
+}
+    
+    export default Collection;

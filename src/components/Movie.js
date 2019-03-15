@@ -5,59 +5,45 @@ import Favorite from './Favorite';
 
 import './../styles/Movie.css';
 import default_poster from './../movie_default.png';
+import AppContext from '../context/AppContext';
 
-class Movie extends React.Component {
-    constructor(){
-        super();
+const Movie = (props) => {
+    return (
+        <AppContext.Consumer>
+            {
+                ({ collections, deleteFavorite }) => (
+                    <section className="movie-section">
+                        {props.path === '/my-collections' && <Ratings movie={props.movie} rating={props.movie.rating} selectedCollection={props.selectedCollection} />}
+                        <div className="movie-section_info">
+                            <img className="movie-section_poster" src={props.movie.poster_path ? `https://image.tmdb.org/t/p/w500/${props.movie.poster_path}` : default_poster} alt={`${props.movie.title} Poster`} />
+                            <p className="movie-section_title">{props.movie.title}</p>
+                        </div>
+                        {
+                            props.path !== '/my-collections' ? (
+                                <Favorite movie={props.movie} favorite={checkIsFavorite(collections, props.movie) ? true : false} />
+                            ) : (
+                                    <span className="movie-section_delete"><i className="fas fa-trash-alt" onClick={(e) => {
+                                        e.preventDefault();
+                                        deleteFavorite(props.selectedCollection, props.index);
+                                    }}></i></span>
+                                )
+                        }
+                    </section>
+                )
+            }
+        </AppContext.Consumer>
+    )
+}
 
-        this.selectCollection = this.selectCollection.bind(this);
-        this.deleteFavorite = this.deleteFavorite.bind(this);
-        this.addRating = this.addRating.bind(this);
-    }
-
-    selectCollection(selectedCollection){
-        this.props.addFavorite(selectedCollection, this.props.movie);
-    }
-
-    checkIsFavorite() {
-        let found;
-        this.props.collections.forEach((collection) => {
+const checkIsFavorite = (collections, currentMovie) => {
+    let found;
+    if (collections && collections.length > 0)
+        collections.forEach((collection) => {
             found = collection.movies.find(movie => {
-                return movie.id === this.props.movie.id;
+                return movie.id === currentMovie.id;
             })
         })
-        return found;
-    }
-
-    deleteFavorite(e){
-        e.preventDefault();
-        
-        this.props.deleteFavorite();
-    }
-
-    addRating(rating){
-        this.props.addRating(rating, this.props.movie);
-    }
-
-    render(){
-        let favorite = this.checkIsFavorite() ? true : false;
-        return (
-            <section className="movie-section">
-                {this.props.path === '/my-collections' && <Ratings rating={this.props.movie.rating} addRating={this.addRating}/> }
-                <div className="movie-section_info">
-                    <img className="movie-section_poster" src={this.props.movie.poster_path ? `https://image.tmdb.org/t/p/w500/${this.props.movie.poster_path}` : default_poster} alt={`${this.props.movie.title} Poster`} />
-                    <p className="movie-section_title">{this.props.movie.title}</p>
-                </div>
-                {
-                    this.props.path !== '/my-collections' ? (
-                        <Favorite {...this.props} selectCollection={this.selectCollection} favorite={favorite}/>
-                    ) : (
-                            <span className="movie-section_delete"><i className="fas fa-trash-alt" onClick={(e) => this.deleteFavorite(e)}></i></span>
-                    )
-                }
-            </section>
-        )
-    }
+    return found;
 }
 
 

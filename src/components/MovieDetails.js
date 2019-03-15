@@ -11,6 +11,7 @@ class MovieDetails extends React.Component {
       movie: {}
     };
   }
+  
   async componentDidMount() {
     const SEARCH_MOVIE_URL = `https://api.themoviedb.org/3/movie/${
       this.props.match.params.id
