@@ -38,11 +38,17 @@ const Movie = (props) => {
 const checkIsFavorite = (collections, currentMovie) => {
     let found;
     if (collections && collections.length > 0)
-        collections.forEach((collection) => {
+        collections.some((collection) => {
             found = collection.movies.find(movie => {
+                console.log(movie.id, currentMovie.id);
                 return movie.id === currentMovie.id;
-            })
-        })
+            });
+            
+            if(found){
+                return true;
+            }
+        });
+
     return found;
 }
 
