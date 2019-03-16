@@ -20,3 +20,18 @@
 .movie-info_info li:not(:last-child) {
     padding-bottom: 1rem;
 }
+
+.movie-info_info h3, .movie-info_director p, .movie-info_release_date p {
+    display: inline-block;
+}
+
+.movie-info_info h3{
+    padding-right: 0.1rem;
+    font-weight: 600;
+}
+
+@media screen and (min-width: 762px){
+    .movie-info {
+        grid-template-columns: 1fr 2fr;
+    }
+}
