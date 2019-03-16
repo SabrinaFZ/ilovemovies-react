@@ -8,3 +8,9 @@
 .search-form_input {
     width: 80%;
 }
+
+@media screen and (min-width: 762px){
+    .search-form_input {
+        width: 90%;
+    }
+}

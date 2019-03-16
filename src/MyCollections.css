@@ -50,3 +50,9 @@
 .my-collections_delete:hover {
     transform: scale(1.1);
 }
+
+@media screen and (min-width: 762px){
+    .my-collections_input {
+        width: 90%;
+    }
+}
