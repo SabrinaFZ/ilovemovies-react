@@ -82,10 +82,11 @@ class App extends React.Component {
 
   deleteCollection(e, collectionPosition) {
     e.stopPropagation();
-    let collectionsCopy = [...this.state.collections];
-    collectionsCopy.splice(collectionPosition, 1);
-    this.setState({
-      collections: [...collectionsCopy]
+    this.setState(previousState => {
+      previousState.collections.splice(collectionPosition, 1);
+      return {
+        collections: [...previousState.collections]
+      };
     });
   }
 
