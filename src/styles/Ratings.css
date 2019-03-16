@@ -1,0 +1,24 @@
+.movie-section_rating{
+    padding: 0.5rem;
+}
+
+[class^="rating"]{
+    padding-right: 0.5rem;
+    color: black;
+}
+
+.far.active{
+    font-weight: 600;
+}
+
+.fa-smile.active{
+    color: #008B0B;
+}
+
+.fa-meh.active{
+    color: #FFD500;
+}
+
+.fa-frown.active{
+    color: #00A2EE;
+}
