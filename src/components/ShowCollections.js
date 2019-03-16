@@ -37,7 +37,8 @@ class ShowCollections extends React.Component {
         e.stopPropagation();
         this.setState({
             openModal: false
-        })
+        });
+        this.props.showCollections();
     }
 
     render(){

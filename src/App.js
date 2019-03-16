@@ -18,6 +18,7 @@ class App extends React.Component {
     this.setMovies = this.setMovies.bind(this);
     this.addFavorite = this.addFavorite.bind(this);
     this.deleteFavorite = this.deleteFavorite.bind(this);
+    this.deleteAllMoviesFavorite = this.deleteAllMoviesFavorite.bind(this);
     this.createCollection = this.createCollection.bind(this);
     this.deleteCollection = this.deleteCollection.bind(this);
     this.addRating = this.addRating.bind(this);
@@ -60,6 +61,22 @@ class App extends React.Component {
     this.setState(previousState => {
       let newCollection = [...previousState.collections];
       newCollection[selectedCollection].movies.splice(moviePosition, 1);
+      return {
+        collections: [...previousState.collections]
+      };
+    });
+  }
+
+  deleteAllMoviesFavorite(currentMovie){
+    this.setState(previousState => {
+      previousState.collections.forEach(collection => {
+        collection.movies.forEach((movie, index) => {
+          if (movie.id === currentMovie.id) {
+            collection.movies.splice(index, 1);
+          }
+        });
+      });
+
       return {
         collections: [...previousState.collections]
       };
@@ -125,6 +142,7 @@ class App extends React.Component {
           setMovies: this.setMovies,
           addFavorite: this.addFavorite,
           deleteFavorite: this.deleteFavorite,
+          deleteAllMoviesFavorite: this.deleteAllMoviesFavorite,
           createCollection: this.createCollection,
           deleteCollection: this.deleteCollection,
           addRating: this.addRating
