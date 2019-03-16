@@ -49,6 +49,12 @@
     transform: scale(1.1);
 }
 
+.my-collections-nav--active{
+    font-weight: 600;
+    color: #DE1100;
+    font-size: 1.2rem;
+}
+
 @media screen and (min-width: 762px){
     .my-collections_input {
         width: 90%;

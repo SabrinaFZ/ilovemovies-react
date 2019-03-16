@@ -33,7 +33,7 @@ class MyCollections extends React.Component {
                     ({ collections }) =>
                         <main id="my-collections">
                             <CreateCollection />
-                            <CollectionNavigation selectCollection={this.selectCollection} />
+                            <CollectionNavigation selectCollection={this.selectCollection} selectedCollection={this.state.selectedCollection}/>
                             <section className="my-collections_movies">
                                 {collections && collections[this.state.selectedCollection] && collections[this.state.selectedCollection].movies.length > 0
                                     && <ListMovies movies={collections[this.state.selectedCollection].movies} {...match} selectedCollection={this.state.selectedCollection} />}
