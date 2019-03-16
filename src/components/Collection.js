@@ -7,12 +7,10 @@ const Collection = (props) => {
         <AppContext.Consumer>
             {
                 ({ addFavorite }) =>
-                    <div>
-                        <p onClick={(e) => {
-                            selectCollection(e, props);
-                            addFavorite(props.collection, props.movie)
-                        }}>{props.collection.name}</p>
-                    </div>
+                    <li onClick={(e) => {
+                        selectCollection(e, props);
+                        addFavorite(props.collection, props.movie)
+                    }}>{props.collection.name}</li>
             }
         </AppContext.Consumer>
 
