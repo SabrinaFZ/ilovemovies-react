@@ -40,10 +40,9 @@ const checkIsFavorite = (collections, currentMovie) => {
     if (collections && collections.length > 0)
         collections.some((collection) => {
             found = collection.movies.find(movie => {
-                console.log(movie.id, currentMovie.id);
                 return movie.id === currentMovie.id;
             });
-            
+
             if(found){
                 return true;
             }
