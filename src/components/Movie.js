@@ -24,7 +24,7 @@ const Movie = (props) => {
                             ) : (
                                     <span className="movie-section_delete"><i className="fas fa-trash-alt" onClick={(e) => {
                                         e.preventDefault();
-                                        deleteFavorite(props.selectedCollection, props.index);
+                                        deleteFavorite(props.selectedCollection, props.position);
                                     }}></i></span>
                                 )
                         }
