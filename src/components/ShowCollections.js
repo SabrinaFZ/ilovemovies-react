@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from "react-modal";
+import { Link } from 'react-router-dom';
 
 import Collection from './Collection';
 import AppContext from '../context/AppContext';
@@ -61,9 +62,11 @@ class ShowCollections extends React.Component {
                                                 collection={collection}
                                                 {...this.props}
                                             />
-
                                         );
                                     })}
+                                    <Link style={{ textDecoration: 'none' }} to="/my-collections">
+                                        <li><p><i className="fas fa-plus"></i> Create a new collection</p></li>
+                                    </Link>
                                 </ul>
                             </div>
                         </Modal>
