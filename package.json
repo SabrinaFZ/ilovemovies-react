@@ -5,6 +5,7 @@
   "homepage": "https://sabrinafz.github.io/ilovemovies-react/",
   "dependencies": {
     "gh-pages": "^2.0.1",
+    "node-sass": "^4.14.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-modal": "^3.8.1",
@@ -16,10 +17,8 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "eject": "react-scripts eject",
+    "lint": "eslint --fix --ext .jsx,.js src"
   },
   "browserslist": [
     ">0.2%",
@@ -28,7 +27,39 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "babel-plugin-module-resolver": "^4.0.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-react-app": "^5.2.1",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-import-resolver-webpack": "^0.12.2",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react-hooks": "^4.0.4",
+    "husky": "^4.2.5",
+    "prettier": "^2.0.5",
     "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1"
+    "react-router-dom": "^4.3.1",
+    "stylelint": "^13.6.0",
+    "stylelint-config-sass-guidelines": "^7.0.0",
+    "stylelint-order": "^4.1.0",
+    "stylelint-scss": "^3.17.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
+  "babel": {
+    "presets": [
+      "react-app"
+    ],
+    "plugins": [
+      ["module-resolver", {
+        "root": ["."],
+        "alias": {
+          "@": "./src"
+        }
+      }]
+    ]
   }
 }

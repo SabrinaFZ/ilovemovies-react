@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import default_poster from "./../movie_default.png";
+import default_poster from './../assets/movie_default.png';
 
-import "./../styles/MovieDetails.css";
+import './../styles/MovieDetails.css';
 
 class MovieDetails extends React.Component {
   constructor(props) {
@@ -13,9 +13,7 @@ class MovieDetails extends React.Component {
   }
 
   async componentDidMount() {
-    const URL_BASE = `https://api.themoviedb.org/3/movie/${
-      this.props.match.params.id
-    }`;
+    const URL_BASE = `https://api.themoviedb.org/3/movie/${this.props.match.params.id}`;
     const SEARCH_MOVIE_URL = `${URL_BASE}?api_key=e53ed30d9e273053803f465b52b55158&language=en-US`;
     const SEARCH_CAST_MOVIE_URL = `${URL_BASE}/credits?api_key=e53ed30d9e273053803f465b52b55158`;
 
@@ -23,11 +21,11 @@ class MovieDetails extends React.Component {
     let cast = await this.callAPI(SEARCH_CAST_MOVIE_URL);
 
     this.setState({
-      movie: { ...movieDetails, ...cast}
+      movie: { ...movieDetails, ...cast }
     });
   }
 
-  async callAPI(URL){
+  async callAPI(URL) {
     let response = await fetch(URL);
     let responseJSON = await response.json();
     return responseJSON;
@@ -65,7 +63,7 @@ class MovieDetails extends React.Component {
                   return (
                     <span key={character.id}>
                       {character.name}
-                      {index !== 2 ? "," : ""}{" "}
+                      {index !== 2 ? ',' : ''}{' '}
                     </span>
                   );
                 })}

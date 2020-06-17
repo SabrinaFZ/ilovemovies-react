@@ -1,18 +1,19 @@
 import React from 'react';
-import {BrowserRouter} from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
-import Routes from './Routes';
-import Nav from './components/Nav';
-import AppContext from './context/AppContext';
+import Routes from '@/routes/routes';
+import Nav from '@/components/Nav';
+import AppContext from '@/context/AppContext';
 
 const FETCH_MOVIES_URL =
-  "https://api.themoviedb.org/3/discover/movie?api_key=e53ed30d9e273053803f465b52b55158&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false";
+  // eslint-disable-next-line max-len
+  'https://api.themoviedb.org/3/discover/movie?api_key=e53ed30d9e273053803f465b52b55158&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false';
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
       movies: [],
-      collections: JSON.parse(localStorage.getItem("collections")) || []
+      collections: JSON.parse(localStorage.getItem('collections')) || []
     };
 
     this.setMovies = this.setMovies.bind(this);
@@ -31,7 +32,7 @@ class App extends React.Component {
   }
 
   componentDidUpdate() {
-    localStorage.setItem("collections", JSON.stringify(this.state.collections));
+    localStorage.setItem('collections', JSON.stringify(this.state.collections));
   }
 
   setMovies(movies) {
@@ -41,7 +42,7 @@ class App extends React.Component {
   }
 
   addFavorite(selectedCollection, movie) {
-    let newMovie = Object.assign({}, movie, { rating: "none" });
+    let newMovie = Object.assign({}, movie, { rating: 'none' });
     this.setState(previousState => {
       let newCollections = previousState.collections.map(collection => {
         if (collection.id === selectedCollection.id) {
@@ -67,7 +68,7 @@ class App extends React.Component {
     });
   }
 
-  deleteAllMoviesFavorite(currentMovie){
+  deleteAllMoviesFavorite(currentMovie) {
     this.setState(previousState => {
       previousState.collections.forEach(collection => {
         collection.movies.forEach((movie, index) => {
