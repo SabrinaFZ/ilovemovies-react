@@ -1,163 +1,121 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 import Routes from '@/routes/routes';
 import Nav from '@/components/Nav';
-import AppContext from '@/context/AppContext';
+import AppContext from '@/context';
 
 const FETCH_MOVIES_URL =
   // eslint-disable-next-line max-len
   'https://api.themoviedb.org/3/discover/movie?api_key=e53ed30d9e273053803f465b52b55158&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false';
-class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      movies: [],
-      collections: JSON.parse(localStorage.getItem('collections')) || []
-    };
 
-    this.setMovies = this.setMovies.bind(this);
-    this.addFavorite = this.addFavorite.bind(this);
-    this.deleteFavorite = this.deleteFavorite.bind(this);
-    this.deleteAllMoviesFavorite = this.deleteAllMoviesFavorite.bind(this);
-    this.createCollection = this.createCollection.bind(this);
-    this.deleteCollection = this.deleteCollection.bind(this);
-    this.addRating = this.addRating.bind(this);
-  }
+const App = () => {
+  const [movies, setMovies] = useState([]);
+  const [collections, setCollections] = useState(
+    JSON.parse(localStorage.getItem('collections')) || []
+  );
 
-  async componentDidMount() {
+  const fetchMovies = async () => {
     let response = await fetch(FETCH_MOVIES_URL);
     let responseJSON = await response.json();
-    this.setMovies(responseJSON.results);
-  }
+    setMovies(responseJSON.results);
+  };
 
-  componentDidUpdate() {
-    localStorage.setItem('collections', JSON.stringify(this.state.collections));
-  }
+  useEffect(() => {
+    if (!movies.length) {
+      fetchMovies();
+    }
+    localStorage.setItem('collections', JSON.stringify(collections));
+  }, [collections]);
 
-  setMovies(movies) {
-    this.setState({
-      movies: movies
-    });
-  }
-
-  addFavorite(selectedCollection, movie) {
-    let newMovie = Object.assign({}, movie, { rating: 'none' });
-    this.setState(previousState => {
-      let newCollections = previousState.collections.map(collection => {
+  const addFavorite = (selectedCollection, movie) => {
+    let newMovie = { ...movie, rating: 'none' };
+    setCollections(
+      collections.map(collection => {
         if (collection.id === selectedCollection.id) {
-          return Object.assign({}, collection, {
+          return {
+            ...collection,
             movies: [...collection.movies, newMovie]
-          });
+          };
         }
         return collection;
+      })
+    );
+  };
+
+  const deleteFavorite = (selectedCollection, moviePosition) => {
+    collections[selectedCollection].movies.splice(moviePosition, 1);
+    setCollections([...collections]);
+  };
+
+  const deleteAllMoviesFavorite = currentMovie => {
+    collections.forEach(collection => {
+      collection.movies.forEach((movie, index) => {
+        if (movie.id === currentMovie.id) {
+          collection.movies.splice(index, 1);
+        }
       });
-      return {
-        collections: [...newCollections]
-      };
+      return collection;
     });
-  }
+    setCollections([...collections]);
+  };
 
-  deleteFavorite(selectedCollection, moviePosition) {
-    this.setState(previousState => {
-      let newCollection = [...previousState.collections];
-      newCollection[selectedCollection].movies.splice(moviePosition, 1);
-      return {
-        collections: [...previousState.collections]
-      };
-    });
-  }
-
-  deleteAllMoviesFavorite(currentMovie) {
-    this.setState(previousState => {
-      previousState.collections.forEach(collection => {
-        collection.movies.forEach((movie, index) => {
-          if (movie.id === currentMovie.id) {
-            collection.movies.splice(index, 1);
-          }
-        });
-      });
-
-      return {
-        collections: [...previousState.collections]
-      };
-    });
-  }
-
-  createCollection(collectionName) {
+  const createCollection = collectionName => {
     let newCollection = {
-      id: this.state.collections.length + 1,
+      id: collections.length + 1,
       name: collectionName,
       movies: []
     };
 
-    this.setState(previousState => {
-      return {
-        collections: [...previousState.collections, newCollection]
-      };
-    });
-  }
+    setCollections([...collections, newCollection]);
+  };
 
-  deleteCollection(e, collectionPosition) {
+  const deleteCollection = (e, collectionPosition) => {
     e.stopPropagation();
-    this.setState(previousState => {
-      previousState.collections.splice(collectionPosition, 1);
-      return {
-        collections: [...previousState.collections]
-      };
-    });
-  }
+    collections.splice(collectionPosition, 1);
+    setCollections([...collections]);
+  };
 
-  addRating(selectedCollection, ratingSelected, movieSelected) {
-    this.setState(previousState => {
-      let newMovies = previousState.collections[selectedCollection].movies.map(
-        movie => {
-          if (movie.id === movieSelected.id) {
-            return Object.assign({}, movie, { rating: ratingSelected });
-          }
-          return movie;
+  const addRating = (selectedCollection, ratingSelected, movieSelected) => {
+    setCollections(
+      collections.map((collection, index) => {
+        if (index === selectedCollection) {
+          return {
+            ...collection,
+            movies: collection.movies.map(movie => {
+              if (movie.id === movieSelected.id) {
+                return { ...movie, rating: ratingSelected };
+              }
+              return movie;
+            })
+          };
         }
-      );
-
-      let newCollections = previousState.collections.map(
-        (collection, index) => {
-          if (index === selectedCollection) {
-            return Object.assign({}, collection, { movies: [...newMovies] });
-          }
-          return collection;
-        }
-      );
-
-      return {
-        collections: [...newCollections]
-      };
-    });
-  }
-
-  render() {
-    return (
-      <AppContext.Provider
-        value={{
-          movies: this.state.movies,
-          collections: this.state.collections,
-          setMovies: this.setMovies,
-          addFavorite: this.addFavorite,
-          deleteFavorite: this.deleteFavorite,
-          deleteAllMoviesFavorite: this.deleteAllMoviesFavorite,
-          createCollection: this.createCollection,
-          deleteCollection: this.deleteCollection,
-          addRating: this.addRating
-        }}
-      >
-        <BrowserRouter>
-          <>
-            <Nav />
-            <Routes />
-          </>
-        </BrowserRouter>
-      </AppContext.Provider>
+        return collection;
+      })
     );
-  }
-}
+  };
+  return (
+    <AppContext.Provider
+      value={{
+        movies,
+        collections,
+        setMovies: setMovies,
+        addFavorite: addFavorite,
+        deleteFavorite: deleteFavorite,
+        deleteAllMoviesFavorite: deleteAllMoviesFavorite,
+        createCollection: createCollection,
+        deleteCollection: deleteCollection,
+        addRating: addRating
+      }}
+    >
+      <BrowserRouter>
+        <>
+          <Nav />
+          <Routes />
+        </>
+      </BrowserRouter>
+    </AppContext.Provider>
+  );
+};
 
 export default App;

@@ -1,22 +1,28 @@
 import React from 'react';
 
-import Ratings from './Ratings';
-import Favorite from './Favorite';
+import Ratings from '@/components/Ratings';
+import Favorite from '@/components/Favorite';
 
-import './../styles/Movie.css';
-import default_poster from './../assets/movie_default.png';
-import AppContext from '../context/AppContext';
+import '@/styles/Movie.css';
+import default_poster from '@/assets/movie_default.png';
+import AppContext from '@/context';
 
 const Movie = props => {
   return (
     <AppContext.Consumer>
-      {({ collections, deleteFavorite }) => (
+      {({
+        collections,
+        deleteFavorite,
+        deleteAllMoviesFavorite,
+        addRating
+      }) => (
         <section className="movie-section">
           {props.path === '/my-collections' && (
             <Ratings
               movie={props.movie}
               rating={props.movie.rating}
               selectedCollection={props.selectedCollection}
+              addRating={addRating}
             />
           )}
           <div className="movie-section_info">
@@ -37,6 +43,7 @@ const Movie = props => {
               favorite={
                 checkIsFavorite(collections, props.movie) ? true : false
               }
+              deleteAllMoviesFavorite={deleteAllMoviesFavorite}
             />
           ) : (
             <span className="movie-section_delete">

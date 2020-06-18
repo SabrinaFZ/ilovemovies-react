@@ -1,15 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Movie from './Movie';
+import Movie from '@/components/Movie';
 
-import './../styles/ListMovies.css';
+import '@/styles/ListMovies.css';
 
 const ListMovies = props => {
-  const { movies } = props;
   return (
     <div className="movies">
-      {movies.map((movie, index) => {
+      {props.movies.map((movie, index) => {
         return (
           <Link
             style={{ textDecoration: 'none' }}

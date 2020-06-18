@@ -3,8 +3,8 @@ import { Route, Switch } from 'react-router';
 
 import Home from '../views/Home';
 import MyCollections from '../views/MyCollections';
-import MovieDetails from '../components/MovieDetails';
-import Error from '../components/Error';
+import MovieDetails from '../views/MovieDetails';
+import Error from '../views/Error';
 
 const Routes = () => {
   return (
