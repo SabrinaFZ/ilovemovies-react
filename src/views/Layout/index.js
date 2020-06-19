@@ -3,10 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Routes from '@/routes/routes';
 import Nav from '@/components/Nav';
 import AppContext from '@/context';
-
-const FETCH_MOVIES_URL =
-  // eslint-disable-next-line max-len
-  'https://api.themoviedb.org/3/discover/movie?api_key=e53ed30d9e273053803f465b52b55158&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false';
+import api from '@/services';
 
 const App = () => {
   const [movies, setMovies] = useState([]);
@@ -15,9 +12,8 @@ const App = () => {
   );
 
   const fetchMovies = async () => {
-    let response = await fetch(FETCH_MOVIES_URL);
-    let responseJSON = await response.json();
-    setMovies(responseJSON.results);
+    const movies = await api.getMovies();
+    setMovies(movies);
   };
 
   useEffect(() => {

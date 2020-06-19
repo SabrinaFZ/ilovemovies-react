@@ -4,7 +4,7 @@ import './Nav.scss';
 
 const Nav = () => {
   return (
-    <nav class="navigator">
+    <nav className="navigator">
       <ul>
         <li>
           <NavLink exact to="/" activeClassName="selected">

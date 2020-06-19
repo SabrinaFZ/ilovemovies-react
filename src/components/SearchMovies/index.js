@@ -18,7 +18,7 @@ const SearchMovies = () => {
   };
 
   return (
-    <form class="search-form" onSubmit={e => searchMovie(e)}>
+    <form className="search-form" onSubmit={e => searchMovie(e)}>
       <input
         className="search-form_input"
         type="text"

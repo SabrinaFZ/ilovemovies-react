@@ -1,23 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import default_poster from '@/assets/movie_default.png';
 import './MovieDetails.scss';
+import api from '@/services';
 
 const MovieDetails = ({ match }) => {
   const [movie, setMovie] = useState({});
 
-  const URL_BASE = `https://api.themoviedb.org/3/movie/${match.params.id}`;
-  const SEARCH_MOVIE_URL = `${URL_BASE}?api_key=e53ed30d9e273053803f465b52b55158&language=en-US`;
-  const SEARCH_CAST_MOVIE_URL = `${URL_BASE}/credits?api_key=e53ed30d9e273053803f465b52b55158`;
-
-  const fetchData = async URL => {
-    const response = await fetch(URL);
-    const responseJSON = await response.json();
-    return responseJSON;
-  };
-
   const getDetails = async () => {
-    const movieDetails = await fetchData(SEARCH_MOVIE_URL);
-    const cast = await fetchData(SEARCH_CAST_MOVIE_URL);
+    const movieDetails = await api.getMovieDetails(match.params.id);
+    const cast = await api.getCredits(match.params.id);
     setMovie({
       ...movieDetails,
       ...cast
@@ -35,7 +26,7 @@ const MovieDetails = ({ match }) => {
           className="movie-detail_poster"
           src={
             movie.poster_path
-              ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+              ? `${process.env.REACT_APP_BASE_IMAGE_URL}/${movie.poster_path}`
               : default_poster
           }
           alt={`${movie.title} Poster`}

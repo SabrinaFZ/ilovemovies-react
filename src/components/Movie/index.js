@@ -52,7 +52,7 @@ const Movie = props => {
           className="movie_poster"
           src={
             props.movie.poster_path
-              ? `https://image.tmdb.org/t/p/w500/${props.movie.poster_path}`
+              ? `${process.env.REACT_APP_BASE_IMAGE_URL}/${props.movie.poster_path}`
               : default_poster
           }
           alt={`${props.movie.title} Poster`}
