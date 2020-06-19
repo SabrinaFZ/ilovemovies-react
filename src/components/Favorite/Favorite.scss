@@ -1,0 +1,10 @@
+.favorite {
+  cursor: pointer;
+  padding: 0.5rem;
+  text-align: right;
+
+  &_button {
+    border: 0;
+    padding: 0;
+  }
+}

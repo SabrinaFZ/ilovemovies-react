@@ -1,0 +1,29 @@
+@import '../../styles/partials/variables';
+
+.show-collections {
+
+  &_header {
+    background: $main-color;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  &_body {
+    padding: 1rem;
+
+    ul {
+
+      li {
+        cursor: pointer;
+        padding: 0.5rem 0;
+
+        &:not(:last-child) {
+          border-bottom: 0.1rem dashed $main-color;
+        }
+      }
+    }
+  }
+}

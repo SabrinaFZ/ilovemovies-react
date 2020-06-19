@@ -1,0 +1,30 @@
+@import './partials/reset';
+@import './partials/variables';
+@import './partials/mixins';
+
+body,
+input,
+button {
+  color: $secondary-color;
+  font-family: 'Cabin', sans-serif;
+}
+
+a {
+  color: $main-color;
+}
+
+input {
+  border: 0;
+  border-radius: 0.2rem;
+  outline: 0;
+  padding: 0.2rem;
+}
+
+button {
+  background: $background-color;
+  border: 0.1rem solid $main-color;
+  border-radius: 0.2rem;
+  color: $main-color;
+  font-weight: 600;
+  padding: 0.2rem 1rem;
+}

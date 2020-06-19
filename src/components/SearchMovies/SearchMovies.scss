@@ -1,0 +1,16 @@
+@import '../../styles/partials/mixins';
+@import '../../styles/partials/variables';
+
+.search-form {
+  background: $main-color;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  
+  &_input {
+    width: 80%;
+    @include mobile {
+      width: 90%;
+    }
+  }
+}

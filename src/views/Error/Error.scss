@@ -1,0 +1,17 @@
+.error {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10rem;
+
+  &_message {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .fa-skull-crossbones {
+    color: #de1100;
+    font-size: 5rem;
+    padding-bottom: 1rem;
+  }
+}
