@@ -1,11 +1,11 @@
 import React from 'react';
-import '@/styles/Error.css';
+import './Error.scss';
 
 const Error = () => {
   return (
-    <div className="error-message">
+    <div className="error">
       <i className="fas fa-skull-crossbones" />
-      <p className="error-message_message">Ups, the url doesn't exist!</p>
+      <p className="error_message">Ups, the url doesn't exist!</p>
     </div>
   );
 };

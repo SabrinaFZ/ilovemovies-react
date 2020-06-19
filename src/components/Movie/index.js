@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import Ratings from '@/components/Ratings';
 import Favorite from '@/components/Favorite';
 import ShowCollections from '@/components/ShowCollections';
-import '@/styles/Movie.css';
+import './Movie.scss';
 import default_poster from '@/assets/movie_default.png';
 import AppContext from '@/context';
 
@@ -39,7 +39,7 @@ const Movie = props => {
   };
 
   return (
-    <section className="movie-section">
+    <section className="movie">
       {props.path === '/my-collections' && (
         <Ratings
           movie={props.movie}
@@ -47,9 +47,9 @@ const Movie = props => {
           selectedCollection={props.selectedCollection}
         />
       )}
-      <div className="movie-section_info">
+      <div className="movie_info">
         <img
-          className="movie-section_poster"
+          className="movie_poster"
           src={
             props.movie.poster_path
               ? `https://image.tmdb.org/t/p/w500/${props.movie.poster_path}`
@@ -57,7 +57,7 @@ const Movie = props => {
           }
           alt={`${props.movie.title} Poster`}
         />
-        <p className="movie-section_title">{props.movie.title}</p>
+        <p className="movie_title">{props.movie.title}</p>
       </div>
       {props.path !== '/my-collections' ? (
         <Favorite
@@ -66,7 +66,7 @@ const Movie = props => {
           showCollections={showCollections}
         />
       ) : (
-        <span className="movie-section_delete">
+        <span className="movie_delete">
           <i
             className="fas fa-trash-alt"
             onClick={e => {

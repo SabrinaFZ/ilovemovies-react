@@ -1,0 +1,24 @@
+.rating {
+  padding: 0.5rem;
+
+  i {
+    color: #000;
+    padding-right: 0.5rem;
+  }
+
+  .far.active {
+    font-weight: 600;
+  }
+
+  .fa-smile.active {
+    color: #008b0b;
+  }
+
+  .fa-meh.active {
+    color: #ffd500;
+  }
+
+  .fa-frown.active {
+    color: #00a2ee;
+  }
+}

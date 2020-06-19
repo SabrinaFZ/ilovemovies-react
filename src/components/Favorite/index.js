@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import AppContext from '@/context';
-import '@/styles/Favorite.css';
+import './Favorite.scss';
 
 const Favorite = props => {
   const { deleteAllMoviesFavorite } = useContext(AppContext);
 
   return (
-    <div className="movie-section_favorite">
+    <div className="favorite">
       <button
-        className="movie-section_button"
+        className="favorite_button"
         onClick={e => {
           props.showCollections(e);
           if (props.favorite) {

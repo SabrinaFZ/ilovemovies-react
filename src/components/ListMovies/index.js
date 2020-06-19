@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Movie from '@/components/Movie';
-import '@/styles/ListMovies.css';
+import './ListMovies.scss';
 
 const ListMovies = props => {
   return (
-    <div className="movies">
+    <div className="list-movies">
       {props.movies.map((movie, index) => {
         return (
           <Link

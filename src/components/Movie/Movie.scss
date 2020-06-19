@@ -1,0 +1,54 @@
+.movie {
+  box-shadow: 1px 2px 35px -13px rgba(0, 0, 0, 0.75);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100%;
+  padding: 0.2;
+
+  &_info {
+    padding: 0 0.5rem;
+  }
+
+  &_poster {
+    border-radius: 0.5rem;
+    display: block;
+    margin: 0 auto;
+    padding: 0.8rem 0.2rem;
+    width: 80%;
+  }
+
+  &_title {
+    color: #de1100;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  &_delete {
+    cursor: pointer;
+    padding: 0.5rem;
+    text-align: right;
+  }
+
+  .modal-header {
+    background: #de1100;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .modal-body {
+    padding: 1rem;
+  }
+
+  .modal-body ul li {
+    cursor: pointer;
+    padding: 0.5rem 0;
+  }
+
+  .modal-body ul li:not(:last-child) {
+    border-bottom: 0.1rem dashed #de1100;
+  }
+}

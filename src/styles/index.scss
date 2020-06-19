@@ -1,0 +1,26 @@
+body,
+input,
+button {
+  color: #3c3c3c;
+  font-family: 'Cabin', sans-serif;
+}
+
+a {
+  color: #de1100;
+}
+
+input {
+  border: 0;
+  border-radius: 0.2rem;
+  outline: 0;
+  padding: 0.2rem;
+}
+
+button {
+  background: #fff;
+  border: 0.1rem solid #de1100;
+  border-radius: 0.2rem;
+  color: #de1100;
+  font-weight: 600;
+  padding: 0.2rem 1rem;
+}

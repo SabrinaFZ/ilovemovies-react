@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import '@/styles/SearchMovies.css';
+import './SearchMovies.scss';
 import AppContext from '@/context';
 
 const SearchMovies = () => {
@@ -18,7 +18,7 @@ const SearchMovies = () => {
   };
 
   return (
-    <form id="search-form" onSubmit={e => searchMovie(e)}>
+    <form class="search-form" onSubmit={e => searchMovie(e)}>
       <input
         className="search-form_input"
         type="text"

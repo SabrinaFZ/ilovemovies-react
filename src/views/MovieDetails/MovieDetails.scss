@@ -1,0 +1,40 @@
+@import '../../styles/partials/mixins';
+@import '../../styles/partials/variables';
+
+.movie-detail {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr;
+  padding: 2rem;
+
+  @include mobile { 
+    grid-template-columns: 1fr 1fr;
+  }
+
+  &_poster {
+    border-radius: 0.3rem;
+    justify-self: left;
+    width: 80%;
+  }
+
+  &_title {
+    color: $main-color;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  &_info li:not(:last-child) {
+    padding-bottom: 1rem;
+
+    h3 {
+      display: inline-block;
+      font-weight: 600;
+      padding-right: 0.1rem;
+    }
+  }
+
+  &_director p,
+  &_release_date p {
+    display: inline-block;
+  }
+}

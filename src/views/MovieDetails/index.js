@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import default_poster from '@/assets/movie_default.png';
-import '@/styles/MovieDetails.css';
+import './MovieDetails.scss';
 
 const MovieDetails = ({ match }) => {
   const [movie, setMovie] = useState({});
@@ -29,10 +29,10 @@ const MovieDetails = ({ match }) => {
   }, [match]);
 
   return (
-    <main className="movie-info">
+    <main className="movie-detail">
       <div>
         <img
-          className="movie-info_poster"
+          className="movie-detail_poster"
           src={
             movie.poster_path
               ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
@@ -42,15 +42,15 @@ const MovieDetails = ({ match }) => {
         />
       </div>
 
-      <div className="movie-info_info">
+      <div className="movie-detail_info">
         <ul>
-          <li className="movie-info_title">
+          <li className="movie-detail_title">
             <p>{movie.title}</p>
           </li>
-          <li className="movie-info_desc">
+          <li className="movie-detail_overview">
             <p>{movie.overview}</p>
           </li>
-          <li className="movie-info_cast">
+          <li className="movie-detail_cast">
             <h3>Cast:</h3>
             {movie.cast &&
               movie.cast.slice(0, 3).map((character, index) => {
@@ -62,10 +62,10 @@ const MovieDetails = ({ match }) => {
                 );
               })}
           </li>
-          <li className="movie-info_director">
+          <li className="movie-detail_director">
             <h3>Director: </h3> <p> {movie.crew && movie.crew[0].name}</p>
           </li>
-          <li className="movie-info_release_date">
+          <li className="movie-detail_release_date">
             <h3>Release Date: </h3>
             <p>{movie.release_date}</p>
           </li>

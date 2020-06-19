@@ -97,12 +97,17 @@
       "react-app"
     ],
     "plugins": [
-      ["module-resolver", {
-        "root": ["."],
-        "alias": {
-          "@": "./src"
+      [
+        "module-resolver",
+        {
+          "root": [
+            "."
+          ],
+          "alias": {
+            "@": "./src"
+          }
         }
-      }]
+      ]
     ]
   },
   "jest": {

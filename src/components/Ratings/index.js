@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import AppContext from '@/context';
-import '@/styles/Ratings.css';
+import './Ratings.scss';
 
 const Ratings = props => {
   const { addRating } = useContext(AppContext);
@@ -11,28 +11,21 @@ const Ratings = props => {
   };
 
   return (
-    <div className="movie-section_rating">
+    <div className="rating">
       <i
         onClick={e => setRating(e)}
         id="happy"
-        className={
-          'rating_happy far fa-smile' +
-          (props.rating === 'happy' ? ' active' : '')
-        }
+        className={'far fa-smile' + (props.rating === 'happy' ? ' active' : '')}
       ></i>
       <i
         onClick={e => setRating(e)}
         id="meh"
-        className={
-          'rating_meh far fa-meh' + (props.rating === 'meh' ? ' active' : '')
-        }
+        className={'far fa-meh' + (props.rating === 'meh' ? ' active' : '')}
       ></i>
       <i
         onClick={e => setRating(e)}
         id="sad"
-        className={
-          'rating_sad far fa-frown' + (props.rating === 'sad' ? ' active' : '')
-        }
+        className={'far fa-frown' + (props.rating === 'sad' ? ' active' : '')}
       ></i>
     </div>
   );
