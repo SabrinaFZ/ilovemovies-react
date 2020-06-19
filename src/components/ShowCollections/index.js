@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
 import Collection from '@/components/Collection';
 import AppContext from '@/context';
+import './ShowCollections.scss';
 
 const customStyles = {
   content: {
@@ -27,17 +28,17 @@ const ShowCollections = props => {
   };
 
   return (
-    <div className="modal">
+    <div className="show-collections">
       <Modal
         isOpen={openModal}
         onRequestClose={closeModal}
         ariaHideApp={false}
         style={customStyles}
       >
-        <header className="modal-header">
+        <header className="show-collections_header">
           <h2>Select a collection</h2>
         </header>
-        <div className="modal-body">
+        <div className="show-collections_body">
           <ul>
             {collections.map(collection => {
               return (
