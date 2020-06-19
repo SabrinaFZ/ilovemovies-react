@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import AppContext from '@/context';
 
 const CollectionNavigation = props => {
+  const { collections, deleteCollection } = useContext(AppContext);
+
   return (
     <aside className="my-collections_aside">
       <ul>
-        {props.collections &&
-          props.collections.length > 0 &&
-          props.collections.map((collection, index) => {
+        {collections &&
+          collections.length > 0 &&
+          collections.map((collection, index) => {
             return (
               <li
                 className={
@@ -20,7 +23,7 @@ const CollectionNavigation = props => {
                 {' '}
                 <span
                   className="my-collections_delete"
-                  onClick={e => props.deleteCollection(e, index)}
+                  onClick={e => deleteCollection(e, index)}
                 >
                   <i className="fas fa-trash-alt"></i>
                 </span>

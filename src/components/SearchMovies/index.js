@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-
+import React, { useState, useContext } from 'react';
 import '@/styles/SearchMovies.css';
+import AppContext from '@/context';
 
-const SearchMovies = ({ setMovies }) => {
+const SearchMovies = () => {
   const [movieToSearch, setMovieToSearch] = useState('');
+  const { setMovies } = useContext(AppContext);
 
   const searchMovie = async e => {
     e.preventDefault();

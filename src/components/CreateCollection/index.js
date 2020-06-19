@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import AppContext from '@/context';
 
-const CreateCollection = ({ createCollection }) => {
+const CreateCollection = () => {
   const [openCreateCollection, setOpenCreateCollection] = useState(false);
   const [collectionName, setCollectionName] = useState('');
+  const { createCollection } = useContext(AppContext);
 
   const handleSubmit = e => {
     e.preventDefault();

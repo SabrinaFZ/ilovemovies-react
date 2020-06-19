@@ -1,19 +1,16 @@
-import React from 'react';
-
+import React, { useContext } from 'react';
 import ListMovies from '@/components/ListMovies';
 import SearchMovies from '@/components/SearchMovies';
 import AppContext from '@/context';
 
-const Home = () => {
+const Home = ({ match }) => {
+  const { movies } = useContext(AppContext);
+
   return (
-    <AppContext.Consumer>
-      {({ movies, setMovies }) => (
-        <main id="home">
-          <SearchMovies setMovies={setMovies} />
-          <ListMovies movies={movies} />
-        </main>
-      )}
-    </AppContext.Consumer>
+    <main id="home">
+      <SearchMovies />
+      <ListMovies movies={movies} {...match} />
+    </main>
   );
 };
 

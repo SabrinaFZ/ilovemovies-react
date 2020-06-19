@@ -1,12 +1,15 @@
-import React from 'react';
-
+import React, { useContext } from 'react';
+import AppContext from '@/context';
 import '@/styles/Ratings.css';
 
 const Ratings = props => {
+  const { addRating } = useContext(AppContext);
+
   const setRating = e => {
     e.preventDefault();
-    props.addRating(props.selectedCollection, e.target.id, props.movie);
+    addRating(props.selectedCollection, e.target.id, props.movie);
   };
+
   return (
     <div className="movie-section_rating">
       <i

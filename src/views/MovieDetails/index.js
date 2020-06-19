@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-
 import default_poster from '@/assets/movie_default.png';
-
 import '@/styles/MovieDetails.css';
 
 const MovieDetails = ({ match }) => {
   const [movie, setMovie] = useState({});
+
   const URL_BASE = `https://api.themoviedb.org/3/movie/${match.params.id}`;
   const SEARCH_MOVIE_URL = `${URL_BASE}?api_key=e53ed30d9e273053803f465b52b55158&language=en-US`;
   const SEARCH_CAST_MOVIE_URL = `${URL_BASE}/credits?api_key=e53ed30d9e273053803f465b52b55158`;
