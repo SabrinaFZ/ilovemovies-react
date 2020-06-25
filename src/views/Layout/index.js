@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import Routes from '@/routes/routes';
+import Routes from '@/routes';
 import Nav from '@/components/Nav';
 import AppContext from '@/context';
 import api from '@/services';
